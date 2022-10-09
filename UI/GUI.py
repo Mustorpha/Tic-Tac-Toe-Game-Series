@@ -173,6 +173,7 @@ def btnClickSingle(board, i, j):
         button[i][j].config(text=board[i][j])
         playerb = player2_name.get() + " Wins!"
         pa = player1_name.get() + " Wins!"
+	bclick = True
         if winner(board, "X"):
             tkinter.messagebox.showinfo('Tic-Tac-Toe', pa)
             reset(board)
@@ -181,7 +182,6 @@ def btnClickSingle(board, i, j):
             tkinter.messagebox.showinfo('Tic-Tac-Toe', "it is a tie")
             reset(board)
             return
-        bclick = True
         flag += 1
 
 game_single = partial(play, menu, True)
