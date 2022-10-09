@@ -74,7 +74,7 @@ class Intelligence ():
         # Else if none of them have won then return 0
         return 0
 
-    def minimax(self, board, depth, isMax, alpha, beta) :
+    def minimax(self, board, depth, isMax, alpha = -1000, beta = 1000) :
 
         '''
         This is the minimax function. It considers all
@@ -107,18 +107,17 @@ class Intelligence ():
                     if (board[i][j]==' ') :
                     
                         # Make the move
-                        board[i][j] = self.player
+                        board[i][j] = Intelligence.player
 
                         # Call minimax recursively and choose the maximum value
-                        best = max( best, Intelligence.minimax(board,
+                        best = max( best, Intelligence.minimax(self, board,
                                                 depth + 1,
-                                                False) )
+                                                False, alpha, beta) )
                         alpha = max(alpha, best)
-                        if beta <= alpha:
-                            break
-
                         # Undo the move
                         board[i][j] = ' '
+                        if beta <= alpha:
+                            break
             return best
 
         # If this minimizer's move
@@ -133,56 +132,48 @@ class Intelligence ():
                     if (board[i][j] == ' ') :
                     
                         # Make the move
-                        board[i][j] = self.opponent
+                        board[i][j] = Intelligence.opponent
 
                         # Call minimax recursively and choose the minimum value
-                        best = min(best, Intelligence.minimax(self, board, depth + 1, True))
-                        beta = min(best, beta)
+                        best = min(best, Intelligence.minimax(board, depth + 1, True, alpha, beta))
+                        beta=min(beta,best)
+                        # Undo the move
+                        board[i][j] = ' '
                         if beta <= alpha:
                             break
 
-                        # Undo the move
-                        board[i][j] = ' '
             return best
 
     # Decide the next move of computer
-    def findBestMove(self, board, alpha = -1000, beta = 1000) : 
+    def findBestMove(board) : 
         bestVal = -1000
         bestMove = (-1, -1)
 
         # Traverse all cells, evaluate minimax function for
         # all empty cells. And return the cell with optimal
         # value.
-
-        if board.count([' ',' ',' ']) == 2:
-            for i in range(3):
-                if board[i].count('O') == 1 and board[i].count('X') == 0:
-                    bestMove = (1, 1)
-                    return bestMove
-
-        else:
-            for i in range(3) :	
-                for j in range(3) :
+        for i in range(3) :	
+            for j in range(3) :
+            
+                # Check if cell is empty
+                if (board[i][j] == ' ') :
                 
-                    # Check if cell is empty
-                    if (board[i][j] == ' ') :
-                    
-                        # Make the move
-                        board[i][j] = self.player
+                    # Make the move
+                    board[i][j] = Intelligence.player
 
-                        # compute evaluation function for this
-                        # move.
-                        moveVal = Intelligence.minimax(board, 0, False)
+                    # compute evaluation function for this
+                    # move.
+                    moveVal = Intelligence.minimax(board, 0, False)
 
-                        # Undo the move
-                        board[i][j] = ' '
+                    # Undo the move
+                    board[i][j] = ' '
 
-                        # If the value of the current move is
-                        # more than the best value, then update
-                        # best value
-                        if (moveVal > bestVal) :			
-                            bestMove = (i, j)
-                            bestVal = moveVal
+                    # If the value of the current move is
+                    # more than the best value, then update
+                    # best value
+                    if (moveVal > bestVal) :			
+                        bestMove = (i, j)
+                        bestVal = moveVal
 
         print("The value of the best Move is :", bestVal)
         print(bestMove)
