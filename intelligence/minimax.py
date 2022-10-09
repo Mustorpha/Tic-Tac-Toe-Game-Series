@@ -1,3 +1,4 @@
+from math import inf as infinity
 
 class Intelligence ():
 
@@ -74,7 +75,7 @@ class Intelligence ():
         # Else if none of them have won then return 0
         return 0
 
-    def minimax(self, board, depth, isMax, alpha = -1000, beta = 1000) :
+    def minimax(self, board, depth, isMax, alpha = -infinity, beta = infinity) :
 
         '''
         This is the minimax function. It considers all
@@ -97,7 +98,7 @@ class Intelligence ():
 
         # If this is maximizer's move
         if (isMax) :	
-            best = -1000 #-INFINITY
+            best = -infinity
 
             # Traverse all cells
             for i in range(3) :		
@@ -122,7 +123,7 @@ class Intelligence ():
 
         # If this minimizer's move
         else :
-            best = 1000 #+INFINITY
+            best = infinity
 
             # Traverse all cells
             for i in range(3) :		
@@ -146,7 +147,7 @@ class Intelligence ():
 
     # Decide the next move of computer
     def findBestMove(board) : 
-        bestVal = -1000
+        bestVal = -infinity
         bestMove = (-1, -1)
 
         # Traverse all cells, evaluate minimax function for
