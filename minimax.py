@@ -2,7 +2,7 @@ from tkinter import *
 import tkinter.messagebox
 from functools import partial
 import random
-from copy import deepcopy
+from math import inf as infinity
 
 menu = Tk()
 menu.geometry("370x500")
@@ -79,7 +79,7 @@ def evaluate(b) :
     # Else if none of them have won then return 0
     return 0
 
-def minimax(board, depth, isMax, alpha = -1000, beta = 1000) :
+def minimax(board, depth, isMax, alpha = -infinity, beta = infinity) :
 
     '''
     This is the minimax function. It considers all
@@ -102,7 +102,7 @@ def minimax(board, depth, isMax, alpha = -1000, beta = 1000) :
 
     # If this is maximizer's move
     if (isMax) :	
-        best = -1000 #-INFINITY
+        best = -infinity #-INFINITY
 
         # Traverse all cells
         for i in range(3) :		
@@ -128,7 +128,7 @@ def minimax(board, depth, isMax, alpha = -1000, beta = 1000) :
 
     # If this minimizer's move
     else :
-        best = 1000 #+INFINITY
+        best = infinity #+INFINITY
 
         # Traverse all cells
         for i in range(3) :		
@@ -151,7 +151,7 @@ def minimax(board, depth, isMax, alpha = -1000, beta = 1000) :
 
 # Decide the next move of computer
 def findBestMove(board) : 
-    bestVal = -1000
+    bestVal = -infinity
     bestMove = (-1, -1)
 
     # Traverse all cells, evaluate minimax function for
