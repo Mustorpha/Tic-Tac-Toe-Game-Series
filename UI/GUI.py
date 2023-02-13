@@ -173,7 +173,7 @@ def btnClickSingle(board, i, j):
         button[i][j].config(text=board[i][j])
         playerb = player2_name.get() + " Wins!"
         pa = player1_name.get() + " Wins!"
-	bclick = True
+        bclick = True
         if winner(board, "X"):
             tkinter.messagebox.showinfo('Tic-Tac-Toe', pa)
             reset(board)
